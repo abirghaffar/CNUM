@@ -31,3 +31,20 @@ for index, row in df.iterrows():
 with open('mon_calendrier.ics', 'w') as my_file:
     my_file.writelines(cal)
     
+with open('mon_calendrier.ics', 'w') as my_file:
+    my_file.write(cal.serialize())
+
+
+
+
+from datetime import datetime
+
+for index, row in df.iterrows():
+    date_debut = datetime.strptime(row['Start Date'].strftime('%Y-%m-%d') + ' ' + row['Start Time'].strftime('%H:%M:%S'), '%Y-%m-%d %H:%M:%S')
+
+    date_fin = datetime.strptime(row['End Date'].strftime('%Y-%m-%d') + ' ' + row['End Time'].strftime('%H:%M:%S'), '%Y-%m-%d %H:%M:%S')
+
+    if date_fin < date_debut:
+        print(f'erreur dans la ligne {index}')
+    else:
+        print('ok!!!!')
